@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:tip_calculator/util/hexcolor.dart';
 
 class BillSplitter extends StatefulWidget {
   const BillSplitter({super.key});
@@ -10,9 +11,11 @@ class BillSplitter extends StatefulWidget {
 }
 
 class _BillSplitterState extends State<BillSplitter> {
-  int _tipPercentage = 0;
+  // int _tipPercentage = 0;
   int _personCounter = 1;
   double _billAmount = 0.0;
+
+  Color _purple = Hexcolor("6908D6");
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +61,7 @@ class _BillSplitterState extends State<BillSplitter> {
                   TextField(
                       keyboardType:
                           TextInputType.numberWithOptions(decimal: true),
-                      style: TextStyle(color: Colors.grey),
+                      style: TextStyle(color: _purple),
                       decoration: InputDecoration(
                         prefixText: "Bill Amount",
                         prefixIcon: Icon(Icons.attach_money),
@@ -70,6 +73,96 @@ class _BillSplitterState extends State<BillSplitter> {
                           _billAmount = 0.0;
                         }
                       }),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text("Split",
+                          style: TextStyle(color: Colors.grey.shade700)),
+                      Row(
+                        children: <Widget>[
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                if (_personCounter > 1) {
+                                  _personCounter--;
+                                } else {
+                                  //do nothing
+                                }
+                              });
+                            },
+                            child: Container(
+                              width: 40.0,
+                              height: 40.0,
+                              margin: EdgeInsets.all(10.0),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(7.0),
+                                  color: _purple.withOpacity(0.1)),
+                              child: Center(
+                                child: Text(
+                                  "-",
+                                  style: TextStyle(
+                                      color: _purple,
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            "$_personCounter",
+                            style: TextStyle(
+                                color: _purple,
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                _personCounter++;
+                                //do nothing
+                              });
+                            },
+                            child: Container(
+                              width: 40.0,
+                              height: 40.0,
+                              margin: EdgeInsets.all(10.0),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(7.0),
+                                  color: _purple.withOpacity(0.1)),
+                              child: Center(
+                                child: Text(
+                                  "+",
+                                  style: TextStyle(
+                                      color: _purple,
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+
+                  // Tip
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text("Tip",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child: Text(
+                          "\$34",
+                          style: TextStyle(
+                              color: _purple,
+                              fontSize: 17.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
