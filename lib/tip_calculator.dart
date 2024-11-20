@@ -11,7 +11,7 @@ class BillSplitter extends StatefulWidget {
 }
 
 class _BillSplitterState extends State<BillSplitter> {
-  // int _tipPercentage = 0;
+  int _tipPercentage = 0;
   int _personCounter = 1;
   double _billAmount = 0.0;
 
@@ -162,7 +162,27 @@ class _BillSplitterState extends State<BillSplitter> {
                         ),
                       ),
                     ],
-                  )
+                  ),
+                  // Slider
+                  Column(
+                    children: <Widget>[
+                      Text(
+                        "$_tipPercentage%",
+                        style: TextStyle(
+                            color: _purple,
+                            fontSize: 17.0,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Slider(
+                        value: _tipPercentage.toDouble(),
+                        onChanged: (double newValue) {
+                          setState(() {
+                            _tipPercentage = newValue.round();
+                          });
+                        },
+                      )
+                    ],
+                  ),
                 ],
               ),
             ),
