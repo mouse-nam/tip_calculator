@@ -11,7 +11,7 @@ class BillSplitter extends StatefulWidget {
 }
 
 class _BillSplitterState extends State<BillSplitter> {
-  int _tipPercentage = 0;
+  int _tipPercentage = 1;
   int _personCounter = 1;
   double _billAmount = 0.0;
 
@@ -36,12 +36,29 @@ class _BillSplitterState extends State<BillSplitter> {
                 borderRadius: BorderRadius.circular(12.0),
               ),
               child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text("Total Per Person"),
-                    Text("\$123"),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "Total Per Person",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        "\$123",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 34.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -163,24 +180,31 @@ class _BillSplitterState extends State<BillSplitter> {
                       ),
                     ],
                   ),
+
                   // Slider
                   Column(
                     children: <Widget>[
                       Text(
                         "$_tipPercentage%",
                         style: TextStyle(
-                            color: _purple,
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.bold),
+                          color: _purple,
+                          fontSize: 17.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       Slider(
+                        min: 0,
+                        max: 100,
+                        divisions: 10,
+                        activeColor: _purple,
+                        inactiveColor: Colors.grey,
                         value: _tipPercentage.toDouble(),
                         onChanged: (double newValue) {
                           setState(() {
                             _tipPercentage = newValue.round();
                           });
                         },
-                      )
+                      ),
                     ],
                   ),
                 ],
