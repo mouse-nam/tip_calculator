@@ -80,7 +80,7 @@ class _BillSplitterState extends State<BillSplitter> {
                           TextInputType.numberWithOptions(decimal: true),
                       style: TextStyle(color: _purple),
                       decoration: InputDecoration(
-                        prefixText: "Bill Amount",
+                        prefixText: "Bill Amount ",
                         prefixIcon: Icon(Icons.attach_money),
                       ),
                       onChanged: (String value) {
@@ -171,7 +171,7 @@ class _BillSplitterState extends State<BillSplitter> {
                       Padding(
                         padding: const EdgeInsets.all(18.0),
                         child: Text(
-                          "\$ ${calculateTotalTip(_billAmount, _personCounter, _tipPercentage)}",
+                          "\$ ${(calculateTotalTip(_billAmount, _personCounter, _tipPercentage)).toStringAsFixed(2)}",
                           style: TextStyle(
                               color: _purple,
                               fontSize: 17.0,
@@ -220,7 +220,7 @@ class _BillSplitterState extends State<BillSplitter> {
     var totalPerPerson =
         (calculateTotalTip(billAmount, spiltBy, tipPercentage) + billAmount) /
             spiltBy;
-    return totalPerPerson;
+    return totalPerPerson.toStringAsFixed(2);
   }
 
   calculateTotalTip(double billAmount, int splitBy, int tipPercentage) {
@@ -230,6 +230,7 @@ class _BillSplitterState extends State<BillSplitter> {
     } else {
       totalTip = (billAmount * tipPercentage) / 100;
       return totalTip;
+      // return totalTip.toStringAsFixed(2);
     }
   }
 }
